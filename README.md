@@ -474,7 +474,7 @@ curl pod-ermawan-managed1/ermawan.html
 **(Instructions)**
 1. Create a new folder named quiz-001-1 for working directory.
 2. Create a new file ansible.cfg, define the location of inventory on that file. also, create inventory that stored the pod-ermawan-managed2.
-3. Create a new playbook named quiz-1-1_playbook.yml. Add the necessary entries to start a first play named Quiz Playbook. define pod-ermawan-managed2 as target host and student as the remote user ,also add require privilege escalation.
+3. Create a new playbook named quiz-1_playbook.yml. Add the necessary entries to start a first play named Quiz Playbook. define pod-ermawan-managed2 as target host and student as the remote user ,also add require privilege escalation.
 4. Add the tasks that installs the latest versions of apache2, mariadb-server, php, and php-mysql packages.
 5. Add the tasks to ensure the apache2 and mariadb services are enabled and running.
 6. Add the necessary entries to define the final task for generating web content for testing. Use the copy module to copy the text 'Adinusa quiz Playbook - ermawan' on the content parameter to /var/www/html/index.php on pod-ermawan-managed2.
@@ -482,7 +482,7 @@ curl pod-ermawan-managed1/ermawan.html
 8. Add a task that tests the web service running on http://pod-ermawan-managed2/index.php from the control node using the uri module. Check for a return status code of 200. After that, save and run the playbook.
 
 **(Verification)**
-1. make sure you have ansible.cfg, inventory, and quiz-1-1_playbook.yml file in the quiz-001-1 directory.
+1. make sure you have ansible.cfg, inventory, and quiz-1_playbook.yml file in the quiz-001-1 directory.
 2. Make sure apache2, mariadb-server, php, and php-mysql packages are installed.
 3. Make sure the apache2 and mariadb service is running.
 4. Make sure the /var/www/html/index.php file is exist in the managed pod-ermawan-managed2.
@@ -515,7 +515,7 @@ pod-ermawan-managed2
 
 **Create playbook.**
 ```zsh
-vim quiz-1-1_playbook.yml
+vim quiz-1_playbook.yml
 ```
 ```
 ...
@@ -563,8 +563,8 @@ vim quiz-1-1_playbook.yml
 
 **Running playbook.**
 ```zsh
-ansible-playbook --syntax-check quiz-1-1_playbook.yml
-ansible-playbook quiz-1-1_playbook.yml
+ansible-playbook --syntax-check quiz-1_playbook.yml
+ansible-playbook quiz-1_playbook.yml
 ```
 
 **Verify webserver.**
@@ -577,7 +577,7 @@ curl pod-ermawan-managed2
 **(Instructions)**
 1. Create new folder quiz-001-2 for working directory.
 2. Create a new file ansible.cfg, define the location of inventory on that file. also, create inventory that stored the pod-ermawan-managed2.
-3. Create the playbook named quiz-1-2_variables.yml and define the following variables in the vars section.
+3. Create the playbook named quiz-2_variables.yml and define the following variables in the vars section.
    List of vars:
    - required_Pkg:
    - apache2
@@ -593,7 +593,7 @@ curl pod-ermawan-managed2
 8. Add a task that tests the web service running on http://pod-ermawan-managed2/index.html from the control node using the uri module. Check for a return status code of 200. After that, save and run the playbook.
 
 **(Verification)**
-1. Make sure you have ansible.cfg, inventory, and quiz-1-2_variables.yml file in the quiz-001-2 directory.
+1. Make sure you have ansible.cfg, inventory, and quiz-2_variables.yml file in the quiz-001-2 directory.
 2. Make sure apache2, and python3-urllib3 packages are installed.
 3. Make sure the apache2 service is running.
 4. Make sure the /var/www/html/index.html file is exist in the managed pod-ermawan-managed2.
@@ -626,7 +626,7 @@ pod-ermawan-managed2
 
 **Create playbook.**
 ```zsh
-vim quiz-1-2_variables.yml
+vim quiz-2_variables.yml
 ```
 ```
 - name: Quiz Playbook
@@ -668,8 +668,8 @@ vim quiz-1-2_variables.yml
 
 **Running playbook.**
 ```zsh
-ansible-playbook --syntax-check quiz-1-2_variables.yml
-ansible-playbook quiz-1-2_variables.yml
+ansible-playbook --syntax-check quiz-2_variables.yml
+ansible-playbook quiz-2_variables.yml
 ```
 
 **Verify webserver.**
@@ -680,9 +680,9 @@ curl pod-ermawan-managed2
 ## Quiz 1.3 : Jinja 2 Template
 
 **(Instructions)**
-1. Create a new folder in the user home directory. Name it quiz-001-3.
+1. Create a new folder in the user home directory. Name it quiz-3.
 2. In the quiz-001-3 folder, create a playbook with the tasks below and execute to the pod-username-managed1 and pod-username-managed2 nodes as a group called webservers:
-3. Name the file of playbook with quiz-1-3_j2template.yml
+3. Name the file of playbook with quiz-3_j2template.yml
 4. Add mariadb 10.9 and nginx repository to the /etc/apt/sources.list.d/ using jinja2 template.
 5. Name the nginx repository file with nginx.list, and name the file of jinja2 template with nginx.list.j2.
 6. Name the mariadb repository file with mariadb.list, and name the file of jinja2 template with mariadb.list.j2.
@@ -696,8 +696,8 @@ service: name=<service> state=<state of service> anotherkey=<another rvalue>
 
 **Create directory.**
 ```zsh
-mkdir quiz-001-3
-cd quiz-001-3
+mkdir quiz-3
+cd quiz-3
 ```
 
 **Create inventory.**
@@ -706,12 +706,13 @@ vim inventory
 ```
 ```
 [webservers]
-pod-ermawan-managed[1:2]
+pod-ermawan-managed1
+pod-ermawan-managed2
 ```
 
 **Create Playbook.**
 ```zsh
-vim quiz-1-3_j2template.yml
+vim quiz-3_j2template.yml
 ```
 ```
 - name: Quiz Jinja 2
@@ -769,6 +770,6 @@ deb-src https://mirrors.aliyun.com/mariadb/repo/10.9/ubuntu jammy main
 
 **Running playbook.**
 ```zsh
-ansible-playbook --syntax-check quiz-1-3_j2template.yml
-ansible-playbook quiz-1-3_j2template.yml
+ansible-playbook --syntax-check quiz-3_j2template.yml
+ansible-playbook quiz-3_j2template.yml
 ```
